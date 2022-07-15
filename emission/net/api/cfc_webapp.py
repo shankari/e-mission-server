@@ -100,10 +100,10 @@ def _get_study_name(request):
   if (orig_host == "localhost:8080") or (orig_host == "10.0.2.2:8080"):
     logging.debug("orig_host = %s, returning dev" % orig_host)
     return "dev"
+  first_domain = orig_host.split(".")[0]
   if orig_host == "openpath-stage":
     logging.debug("orig_host = %s, returning stage" % orig_host)
     return "stage"
-  first_domain = orig_host.split(".")[0]
   openpath_index = first_domain.find("-openpath")
   logging.debug("orig_host = %s, first_domain = %, openpath_index = %s")
   if openpath_index == -1:
