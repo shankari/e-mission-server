@@ -98,13 +98,17 @@ def _get_study_name(request):
   orig_host = request.urlparts.netloc
   logging.debug("While getting study name, orig_host = %s" % orig_host)
   if (orig_host == "localhost:8080") or (orig_host == "10.0.2.2:8080"):
+    logging.debug("orig_host = %s, returning dev" % orig_host)
     return "dev"
   if orig_host == "openpath-stage":
+    logging.debug("orig_host = %s, returning stage" % orig_host)
     return "stage"
   first_domain = orig_host.split(".")[0]
   openpath_index = first_domain.find("-openpath")
+  logging.debug("orig_host = %s, first_domain = %, openpath_index = %s")
   if openpath_index == -1:
       abort(400, "Invalid study format %s, does not end with -openpath" % first_domain)
+  logging.debug("returning valid study name = %s" % study_name)
   study_name = first_domain[0:openpath_index]
   return study_name
 
