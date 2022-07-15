@@ -97,7 +97,7 @@ def index():
 def _get_study_name(request):
   orig_host = request.urlparts.netloc
   logging.debug("While getting study name, orig_host = %s" % orig_host)
-  if orig_host == "localhost:8080" or "10.0.2.2:8080":
+  if (orig_host == "localhost:8080") or (orig_host == "10.0.2.2:8080"):
     return "dev"
   if orig_host == "openpath-stage":
     return "stage"
