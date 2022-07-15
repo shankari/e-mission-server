@@ -101,12 +101,14 @@ def _get_study_name(request):
     logging.debug("orig_host = %s, returning dev" % orig_host)
     return "dev"
   first_domain = orig_host.split(".")[0]
-  if orig_host == "openpath-stage":
+  if first_domain == "openpath-stage":
     logging.debug("orig_host = %s, returning stage" % orig_host)
     return "stage"
   openpath_index = first_domain.find("-openpath")
-  logging.debug("orig_host = %s, first_domain = %, openpath_index = %s")
+  logging.debug("orig_host = %s, first_domain = %, openpath_index = %s" %
+      (orig_host, first_domain, openpath_index))
   if openpath_index == -1:
+      logging.debug("Invalid study format %s, does not end with -openpath" % first_domain)
       abort(400, "Invalid study format %s, does not end with -openpath" % first_domain)
   logging.debug("returning valid study name = %s" % study_name)
   study_name = first_domain[0:openpath_index]
