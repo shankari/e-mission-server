@@ -105,7 +105,7 @@ def _get_study_name(request):
     logging.debug("orig_host = %s, returning stage" % orig_host)
     return "stage"
   openpath_index = first_domain.find("-openpath")
-  logging.debug("orig_host = %s, first_domain = %, openpath_index = %s" %
+  logging.debug("orig_host = %s, first_domain = %s, openpath_index = %s" %
       (orig_host, first_domain, openpath_index))
   if openpath_index == -1:
       logging.debug("Invalid study format %s, does not end with -openpath" % first_domain)
@@ -118,7 +118,7 @@ def _get_study_name(request):
 def redirectToNRELStudy():
   study_name = _get_study_name(request)
   new_url = "https://www.nrel.gov/transportation/openpath-%s-study.html" % (study_name)
-  logging.debug("Found study %s, mapped join URL for %s -> %s" % (study_name, orig_host, new_url))
+  logging.debug("Found study %s, mapped join URL for %s -> %s" % (study_name, request.urlparts.netloc, new_url))
   response.status = 301
   response.set_header('Location', new_url)
 
