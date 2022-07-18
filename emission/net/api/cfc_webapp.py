@@ -110,8 +110,8 @@ def _get_study_name(request):
   if openpath_index == -1:
       logging.debug("Invalid study format %s, does not end with -openpath" % first_domain)
       abort(400, "Invalid study format %s, does not end with -openpath" % first_domain)
-  logging.debug("returning valid study name = %s" % study_name)
   study_name = first_domain[0:openpath_index]
+  logging.debug("returning valid study name = %s" % study_name)
   return study_name
 
 @route('/join_redirect_to_static')
