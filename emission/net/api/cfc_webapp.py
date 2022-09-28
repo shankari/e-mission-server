@@ -512,9 +512,14 @@ def getUUID(request, inHeader=False):
             study_prefix = "nrelop_"+study_name
             logging.debug("study prefix is %s" % study_prefix)
             if request.json["user"].startswith(study_prefix):
-                request.json["user"] = request.json["user"][len(study_prefix)+1:]
-                logging.debug("After stripping out %s, token is %s" % (study_prefix, request.json["user"]))
+                full_token = request.json["user"]
+                base_token = request.json["user"][len(study_prefix)+1:]
+                logging.debug("After stripping out %s from full token %s, base token is %s" % (study_prefix, full_token, base_token))
+                request.json["user"] = base_token
                 retUUID = enaa.getUUID(request, auth_method, inHeader)
+                if retUUID is not None:
+                    logging.debug("Found valid base token %s, changing to full token %s" % (base_token, full_token))
+                    edb.get_uuid_db().update_one({"user_email": base_token}, {"$set": {"user_email": full_token}})
                 if retUUID is None:
                     raise HTTPError(403, "token is valid, but no account found for user")
             else:
