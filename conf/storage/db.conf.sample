@@ -1,6 +1,6 @@
 {
     "timeseries": {
         "url": "localhost",
-        "result_limit": 250000
+        "result_limit": 100000
     }
 }
