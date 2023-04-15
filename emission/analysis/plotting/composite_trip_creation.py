@@ -59,6 +59,7 @@ def create_composite_trip(ts, ct):
     # and so untracked composite objects will not have a confirmed_place.
     if not isUntrackedTime:
         composite_trip_data["end_confirmed_place"] = eaum.get_confirmed_place_for_confirmed_trip(ct, "end_place")
+        composite_trip_data["start_confirmed_place"] = eaum.get_confirmed_place_for_confirmed_trip(ct, "start_place")
     # later we will want to put section & modes in composite_trip as well
     composite_trip_entry = ecwe.Entry.create_entry(ct["user_id"], "analysis/composite_trip", composite_trip_data)
     composite_trip_entry["metadata"]["origin_key"] = origin_key
